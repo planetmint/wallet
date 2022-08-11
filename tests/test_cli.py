@@ -127,9 +127,6 @@ def test_cli_fulfill(
             json.dumps(prepared_hello_world_tx),
         ],
     )
-    print(f"result : {result}")
-    print("\n\n")
-    print(f"fulfillment : {fulfilled_hello_world_tx}")
     assert json.loads(result.output) == fulfilled_hello_world_tx
 
 

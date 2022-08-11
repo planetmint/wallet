@@ -194,9 +194,9 @@ def fulfill(wallet, password, address, index, transaction):
     try:
         key = ks.get_private_key_drv(wallet, address, index, password)
         tx = fulfill_transaction(
-            json.loads(transaction), private_keys=[b58encode(key.privkey).decode()]
+            json.loads(transaction),
+            private_keys=[b58encode(key.privkey).decode()],
         )
-        print(f"{tx}")
         click.echo(json.dumps(tx))
     # TODO ks.WalletError decorator
     except ks.WalletError as error:

@@ -156,27 +156,33 @@ def prepared_hello_world_tx():
 @pytest.fixture
 def fulfilled_hello_world_tx(prepared_hello_world_tx):
     """Place desired values in pattern matching style to create prepared tx"""
-    return Schema(
-        {
-            "inputs": [
-                {
-                    "fulfillment": Use(
-                        lambda _: (
-                            "pGSAIDbBUPlebdNkDx9joFcxPwb_vOaYwaoC9_xuVTDWg4R5gU"
-                            "CpRvdsk6GZ9D1GM3kHl14ToL1VE8876d7p9UifgGei9qR9kMhl"
-                            "frDbHJYiRWeRhXCCSedsxDqqSq9SpkJmgPgL"
-                        )
-                    ),
-                    str: object,
-                }
-            ],
-            "id": Use(
-                lambda _: "c008a67793551c4ad060f059885a5b44397a196a0592a160d1eb5703436430e4"
-            ),
-            str: object,
-        }
-    ).validate(prepared_hello_world_tx)
-
+    return {
+        "inputs": [
+            {
+                "owners_before": ["9eKCgG4uJ3KYM9GwBXiEFDtUzjpAqnSGVAfZHx2Uq6gS"],
+                "fulfills": None,
+                "fulfillment": "pGSAIIBskM6EqZtE_wqlTv3gkNStd4mdlVqo7_8dX7GAL7gzgUA0b80rSW9mlLWVPkjcIO8IZFBbvH6a-xL8DP4wFzcRNNnotf44vmB6wfBHdDDoqj6TWo7D5I8NBMyx4uJTBvAP",
+            }
+        ],
+        "outputs": [
+            {
+                "public_keys": ["9eKCgG4uJ3KYM9GwBXiEFDtUzjpAqnSGVAfZHx2Uq6gS"],
+                "condition": {
+                    "details": {
+                        "type": "ed25519-sha-256",
+                        "public_key": "9eKCgG4uJ3KYM9GwBXiEFDtUzjpAqnSGVAfZHx2Uq6gS",
+                    },
+                    "uri": "ni:///sha-256;o6-KxbkpN3M4dNPDktD2M4aQajmKwwb5HN9z10pti4Y?fpt=ed25519-sha-256&cost=131072",
+                },
+                "amount": "1",
+            }
+        ],
+        "operation": "CREATE",
+        "metadata": {"meta": "someta"},
+        "asset": {"data": {"hello": "world"}},
+        "version": "2.0",
+        "id": "d608c8c37d3d1e153f3a1c9676312afabe609ec1af50566e57235ca28ff55818",
+    }
 
 @pytest.fixture
 def random_fulfilled_tx_gen():
