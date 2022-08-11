@@ -11,7 +11,7 @@ install_requires = [
     "Click",
     "pickledb",
     "PyNaCl",
-    "planetmint-driver",
+    "planetmint-driver>=0.9.4",
     "mnemonic",
 ]
 
