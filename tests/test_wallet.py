@@ -21,9 +21,7 @@ def test_can_decrypt(msg, password):
     assert decr == msg
 
 
-def test_get_master_privkey(
-    default_wallet, default_password, keymanagement_test_vectors
-):
+def test_get_master_privkey(default_wallet, default_password, keymanagement_test_vectors):
     xprivkey = get_master_xprivkey(default_wallet, "default", default_password)
     assert keymanagement_test_vectors.privkey == xprivkey.privkey
     assert keymanagement_test_vectors.chaincode == xprivkey.chaincode

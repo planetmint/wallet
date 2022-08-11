@@ -37,14 +37,10 @@ from plntmnt_wallet.keystore import (
         (0xFFFFFFF, 0xFFFFFFF),
     ],
 )
-def test__get_private_key_drv(
-    session_wallet, default_password, keymanagement_test_vectors, account, index
-):
+def test__get_private_key_drv(session_wallet, default_password, keymanagement_test_vectors, account, index):
     # TODO test raises
     key_drv = get_private_key_drv("default", account, index, default_password)
-    test_xkey = ExtendedKey(
-        keymanagement_test_vectors.privkey, keymanagement_test_vectors.chaincode
-    )
+    test_xkey = ExtendedKey(keymanagement_test_vectors.privkey, keymanagement_test_vectors.chaincode)
     assert key_drv == plntmnt_derive_account(test_xkey, account, index)
 
 
@@ -72,8 +68,7 @@ def test_cli_init_default(tmp_home, click_runner):
         ).validate(conf_dict)
     assert result.exit_code == 0
     assert result.output.startswith(
-        "Keystore initialized in:\n{}\n"
-        "Your mnemonic phrase is:\n".format(conf_location)
+        "Keystore initialized in:\n{}\n" "Your mnemonic phrase is:\n".format(conf_location)
     )
 
 
@@ -130,9 +125,7 @@ def test_cli_fulfill(
     assert json.loads(result.output) == fulfilled_hello_world_tx
 
 
-def test_cli_commit(
-    random_fulfilled_tx_gen, click_runner, httpserver, session_tx_cache_obj
-):
+def test_cli_commit(random_fulfilled_tx_gen, click_runner, httpserver, session_tx_cache_obj):
     ftx = random_fulfilled_tx_gen()
 
     def handler(request):
@@ -145,9 +138,7 @@ def test_cli_commit(
         method="POST",
     ).respond_with_handler(handler)
 
-    result = click_runner.invoke(
-        cli.commit, ["--transaction", json.dumps(ftx), "--url", "http://localhost:5000"]
-    )
+    result = click_runner.invoke(cli.commit, ["--transaction", json.dumps(ftx), "--url", "http://localhost:5000"])
     assert json.loads(result.output) == ftx
     tx_condition_details = [i["condition"]["details"] for i in ftx["outputs"]]
     assert len(tx_condition_details) == 1
@@ -170,9 +161,7 @@ def test_cli_import(
     for account in range(3):
         for index in range(3):
             dxk = plntmnt_derive_account(xkey, account=account, index=index)
-            ftx = random_fulfilled_tx_gen(
-                use_canonical_key=(dxk.privkey, privkey_to_pubkey(dxk.privkey))
-            )
+            ftx = random_fulfilled_tx_gen(use_canonical_key=(dxk.privkey, privkey_to_pubkey(dxk.privkey)))
             result = plntmnt.transactions.send_commit(ftx)
             transactions[result["id"]] = result
 

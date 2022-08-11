@@ -16,9 +16,7 @@ from plntmnt_wallet.keymanagement import (
 
 PLNTMNT_COINTYPE = 8680
 PLNTMNT_TREE_INDEX_ROOT = (44, PLNTMNT_COINTYPE)
-PLNTMNT_PATH_TEMPLATE = "m/44/{cointype}'/{{account}}'/0/{{address_index}}'".format(
-    cointype=PLNTMNT_COINTYPE
-)
+PLNTMNT_PATH_TEMPLATE = "m/44/{cointype}'/{{account}}'/0/{{address_index}}'".format(cointype=PLNTMNT_COINTYPE)
 DEFAULT_KEYSTORE_FILENAME = ".plntmnt_wallet"
 
 
@@ -27,9 +25,7 @@ class WalletError(Exception):
 
 
 def plntmnt_derive_account(key: ExtendedKey, account, index=0):
-    return derive_from_path(
-        key, PLNTMNT_PATH_TEMPLATE.format(account=account, address_index=index)
-    )
+    return derive_from_path(key, PLNTMNT_PATH_TEMPLATE.format(account=account, address_index=index))
 
 
 def wallet_dumps(wallet_dict):

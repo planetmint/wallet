@@ -51,9 +51,7 @@ _location = click.option(
     default=ks.get_home_path_and_warn,
 )
 
-_transaction = click.option(
-    "-t", "--transaction", help="Transaction json string", type=str, required=True
-)
+_transaction = click.option("-t", "--transaction", help="Transaction json string", type=str, required=True)
 
 _indent = click.option("-I", "--indent", help="Indent result", type=bool, is_flag=True)
 
@@ -73,10 +71,7 @@ def cli():
     "--strength",
     type=int,
     default=256,
-    help=(
-        "Seed strength. One of the following "
-        "[128, 160, 192, 224, 256] default is 256"
-    ),
+    help=("Seed strength. One of the following " "[128, 160, 192, 224, 256] default is 256"),
 )
 @click.option(
     "-e",
@@ -109,9 +104,7 @@ def cli():
     is_flag=True,
     help=("Only ouput the resulting mnemonic seed"),
 )
-def init(
-    wallet, strength, entropy, mnemonic_language, no_keystore, location, password, quiet
-):
+def init(wallet, strength, entropy, mnemonic_language, no_keystore, location, password, quiet):
     # TODO make OS checks
     # TODO no-keystore and quiet should be mutually exclusive?
     # TODO Sensible errors on bad input
@@ -140,10 +133,7 @@ def init(
             click.echo(mnemonic_phrase)
         else:
             click.echo("Keystore initialized in:\n{}".format(keystore_location))
-            click.echo(
-                "Your mnemonic phrase is:\n{}\n"
-                "Keep it in a safe place!".format(mnemonic_phrase)
-            )
+            click.echo("Your mnemonic phrase is:\n{}\n" "Keep it in a safe place!".format(mnemonic_phrase))
             # TODO ks.WalletError decorator
     except ks.WalletError as error:
         click.echo(error)
@@ -157,9 +147,7 @@ def init(
 @_index
 @_password
 @_indent
-@click.option(
-    "-o", "--operation", type=str, help="Operation CREATE/TRANSFER", required=True
-)
+@click.option("-o", "--operation", type=str, help="Operation CREATE/TRANSFER", required=True)
 @click.option("-A", "--asset", type=str, help="Asset", required=True)
 @click.option("-M", "--metadata", type=str, help="Metadata", default="{}")
 def prepare(wallet, address, index, password, asset, metadata, indent, operation):
@@ -277,9 +265,7 @@ def populate_tx_cache(*, xkey, location, url):
     for account in range(GAP_LIMIT):
         for index in range(GAP_LIMIT):
             dxk = ks.plntmnt_derive_account(xkey, account=account, index=index)
-            outputs = plntmnt.outputs.get(
-                b58encode(km.privkey_to_pubkey(dxk.privkey)[1:]).decode()
-            )
+            outputs = plntmnt.outputs.get(b58encode(km.privkey_to_pubkey(dxk.privkey)[1:]).decode())
             if not outputs:
                 break
             for output in outputs:

@@ -15,9 +15,7 @@ from plntmnt_wallet.keymanagement import (
 def test_path_to_indexes(drv_tree_position):
     # TODO Parametrize H, h and '
     path = reduce(
-        lambda l, r: (
-            "{}/{}".format(l, "{}H".format(r - 0x80000000) if r >= 0x80000000 else r)
-        ),
+        lambda l, r: ("{}/{}".format(l, "{}H".format(r - 0x80000000) if r >= 0x80000000 else r)),
         drv_tree_position,
         "m",
     )
@@ -42,9 +40,7 @@ def test_test_derive_extended_key(ed25519_vectors):
                     "public",
                 ]
             ]
-            drvprivkey, drvchaincode = derive_key(
-                seed_to_extended_key(bytes.fromhex(seed)), path_to_indexes(path)
-            )
+            drvprivkey, drvchaincode = derive_key(seed_to_extended_key(bytes.fromhex(seed)), path_to_indexes(path))
             assert drvprivkey.hex() == privkey
             assert drvchaincode.hex() == chaincode
             assert privkey_to_pubkey(drvprivkey).hex() == pubkey

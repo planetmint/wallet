@@ -40,15 +40,9 @@ def keymanagement_test_vectors():
             "0a86bc9cc5237e501d361b224d6f426d"
             "e897e39bac20085c792c6d53598908bb"
         ),
-        privkey=bytes.fromhex(
-            "85e26d810b973fff21275125704dc485" "5d8245c428c9b28348bd3530690f3f57"
-        ),
-        chaincode=bytes.fromhex(
-            "31be3971e42d316d9b19c3e0ad9186db" "4ac62feb601b80703e1c8643d9bb4fed"
-        ),
-        pubkey=bytes.fromhex(
-            "00" "a341bde5863d9cf770599709fd582a89" "f65527b417abb890c9c964d0df4742ce"
-        ),
+        privkey=bytes.fromhex("85e26d810b973fff21275125704dc485" "5d8245c428c9b28348bd3530690f3f57"),
+        chaincode=bytes.fromhex("31be3971e42d316d9b19c3e0ad9186db" "4ac62feb601b80703e1c8643d9bb4fed"),
+        pubkey=bytes.fromhex("00" "a341bde5863d9cf770599709fd582a89" "f65527b417abb890c9c964d0df4742ce"),
     )
 
 
@@ -62,9 +56,7 @@ def privkey_crypt_salt(keymanagement_test_vectors, default_password):
     # TODO move to test vectors
     from plntmnt_wallet.keystore import symkey_encrypt
 
-    crypt, salt = symkey_encrypt(
-        keymanagement_test_vectors.privkey, default_password.encode()
-    )
+    crypt, salt = symkey_encrypt(keymanagement_test_vectors.privkey, default_password.encode())
     return crypt, salt
 
 
@@ -184,6 +176,7 @@ def fulfilled_hello_world_tx(prepared_hello_world_tx):
         "id": "d608c8c37d3d1e153f3a1c9676312afabe609ec1af50566e57235ca28ff55818",
     }
 
+
 @pytest.fixture
 def random_fulfilled_tx_gen():
     def closure(use_canonical_key=None):
@@ -208,9 +201,7 @@ def random_fulfilled_tx_gen():
             },
             metadata={"planet": "earth"},
         )
-        fulfilled_creation_tx = plntmnt.transactions.fulfill(
-            prepared_creation_tx, private_keys=alice.private_key
-        )
+        fulfilled_creation_tx = plntmnt.transactions.fulfill(prepared_creation_tx, private_keys=alice.private_key)
         return fulfilled_creation_tx
 
     return closure
