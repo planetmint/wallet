@@ -1,2 +1,0 @@
-test:
-	PYTEST_HTTPSERVER_PORT=5000 pytest -s
